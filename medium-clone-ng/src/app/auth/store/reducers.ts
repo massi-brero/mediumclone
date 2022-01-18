@@ -4,7 +4,10 @@ import { AuthStateInterface } from '../types/authStateInterface'
 import { registerAction } from './actions/register.action'
 
 const initialState: AuthStateInterface = {
+  isLoggedIn: null,
   isSubmitting: false,
+  currentUser: null,
+  validationErrors: null
 }
 
 const authReducer = createReducer(
