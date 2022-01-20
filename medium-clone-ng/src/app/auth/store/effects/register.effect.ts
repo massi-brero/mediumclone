@@ -19,6 +19,7 @@ export class RegisterEffect {
         // we use pipe instead of subscribe since it's a synchronous process
         return this.authService.register(req).pipe(
           map((currentUser: CurrentUserInterface) => {
+            // window.localStorage.setItem('accessToken', currentUser.token)
             return registerSuccessAction({ currentUser })
           }),
           catchError((errorResponse: HttpErrorResponse) => {
