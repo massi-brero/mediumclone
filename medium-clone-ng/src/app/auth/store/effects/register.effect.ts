@@ -7,8 +7,10 @@ import {
 } from '../actions/register.action'
 import { AuthService } from '../../register/services/auth.service'
 import { CurrentUserInterface } from '../../../shared/types/currentUser.interface'
-import {catchError, map, of, switchMap} from 'rxjs'
+import {catchError, map, of, switchMap, tap} from 'rxjs'
 import {HttpErrorResponse} from "@angular/common/http";
+import {PersistanceService} from "../../../shared/services/persistance.service";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class RegisterEffect {
@@ -19,7 +21,7 @@ export class RegisterEffect {
         // we use pipe instead of subscribe since it's a synchronous process
         return this.authService.register(req).pipe(
           map((currentUser: CurrentUserInterface) => {
-            // window.localStorage.setItem('accessToken', currentUser.token)
+            this.persistanceService.set('accessToken', currentUser.token)
             return registerSuccessAction({ currentUser })
           }),
           catchError((errorResponse: HttpErrorResponse) => {
@@ -30,5 +32,21 @@ export class RegisterEffect {
     )
   )
 
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  redirectAfterSubmit$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(registerSuccessAction),
+        tap(() => {
+          this.router.navigateByUrl('/')
+        })
+    ),
+    {dispatch: false}
+  )
+
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private persistanceService: PersistanceService,
+    private router: Router
+  ) {}
 }

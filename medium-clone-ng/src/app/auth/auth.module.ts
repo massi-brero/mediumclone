@@ -13,6 +13,7 @@ import {
   BackendErrorMessagesComponent
 } from "../shared/modules/backend-error-messages/backendErrorMessages/components/backend-error-messages/backend-error-messages.component";
 import {BackendErrorMessagesModule} from "../shared/modules/backend-error-messages/backend-error-messages.module";
+import {PersistanceService} from "../shared/services/persistance.service";
 
 const routes = [
   {
@@ -31,6 +32,9 @@ const routes = [
     EffectsModule.forFeature([RegisterEffect]),
     BackendErrorMessagesModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    PersistanceService
+  ],
 })
 export class AuthModule {}
