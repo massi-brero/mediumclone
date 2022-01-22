@@ -6,13 +6,13 @@ import { registerAction } from '../../store/actions/register.action'
 import { Observable } from 'rxjs'
 import { AppStateInterface } from '../../../shared/types/appState.interface'
 import {isSubmittingSelector, validationErrorsSelector} from '../../store/selectors'
-import { AuthService } from '../services/auth.service'
+import { AuthService } from '../../services/auth.service'
 import { CurrentUserInterface } from '../../../shared/types/currentUser.interface'
 import {RegisterRequestInterface} from "../../types/registerRequest.interface";
 import {BackendErrorsInterface} from "../../../shared/types/backendErrors.interface";
 
 @Component({
-  selector: 'mc-register',
+  selector: 'mc-login',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
     }
     this.store.dispatch(registerAction({ req }))
     // this.authService
-    //   .register({ user: this.form.value })
+    //   .login({ user: this.form.value })
     //   .subscribe((currentUser: CurrentUserInterface) => {
     //     console.log(currentUser)
     //   })
