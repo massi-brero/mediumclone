@@ -12,6 +12,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {
   BackendErrorMessagesComponent
 } from './shared/modules/backend-error-messages/backendErrorMessages/components/backend-error-messages/backend-error-messages.component';
+import {TopBarModule} from "./shared/modules/topbar/top-bar/top-bar.module";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     HttpClientModule,
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    TopBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
