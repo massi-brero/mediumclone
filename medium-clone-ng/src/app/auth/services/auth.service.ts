@@ -22,6 +22,13 @@ export class AuthService {
     return this.createPostUser(url, data)
   }
 
+  getCurrentUser(): Observable<CurrentUserInterface> {
+    const url = `${environment.apiUrl}/users`
+    return this.http.get(url).pipe(
+      map((response: AuthResponseInterface) => response.user)
+    )
+  }
+
   private createPostUser(url: string, data: any) {
     return this.http
       .post<AuthResponseInterface>(url, data)
